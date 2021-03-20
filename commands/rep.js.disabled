@@ -1,0 +1,11 @@
+exports.run = async (client, msg, args) => {
+  try {
+  if (!msg.mentions.members.first()) return msg.channel.send("you forgot to mention someone lol. usage: `_rep <@user>`");
+  const user = msg.mentions.members.first();
+  const prevrep = await client.rep.get(`${user.id}-rep`)
+  await client.rep.set(`${user.id}-rep`, (prevrep+1) ?? 1);
+  return msg.channel.send("gave +1 rep");
+  } catch (e) {
+    return msg.reply(e.stack);
+  }
+}
